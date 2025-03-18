@@ -1,34 +1,70 @@
 import 'package:flutter/material.dart';
 
-// Main Method - where App starts
-void main() {
-  // runApp method takes in the main class widget as a root widget
-  runApp(MyApp());
-}
+void main() => runApp(MaterialApp(home: BrandonCard()));
 
-// Stateless widgets - boilerplate code
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // Example of changing the background colour
-  // What is home and scaffold
+class BrandonCard extends StatefulWidget {
+  @override
+  State<BrandonCard> createState() => _BrandonCardState();
+}
+class _BrandonCardState extends State<BrandonCard> {
+  // Data here can now change over time thanks to stateful widget
+  // We then need to replace the widget in question with $myCounter
+  int myCounter = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 231, 165, 213),
-
-        appBar: AppBar(
-          title: const Text('Brandons First App'),
-          centerTitle: true,
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState((){
+            myCounter += 1;
+          });
+        },
+        child: Text(
+          'INCREMENT',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white, fontSize:8 ),
+          maxLines: 1,
         ),
-        // Align  the widgets in the body to the center please
-        body: Align(
-          alignment: Alignment.center,
-          child: Text('Hello World!'),
+        backgroundColor: Colors.red,
+      ),
+      // Red AppBar with my name (centered) on it
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            'Brandon Douglas!',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        backgroundColor: Colors.red,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 48, // Image radius
+              backgroundImage: AssetImage('assets/images/animated_avatar.jpg'),
+            ),
+
+            Container(
+              child: Column(
+                children: [
+                  Text('Hey, Welcome to my Android App.'),
+                  Text('I hope you enjoy your stay!'),
+                  Text('- Brandon.'),
+                ],
+              ),
+            ),
+            Container(
+              child: Text(
+                'You have pressed the button this amount of times',
+                style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+              ),
+            ),
+            Text('$myCounter', style: TextStyle(fontSize: 100)),
+          ],
         ),
       ),
+      backgroundColor: const Color.fromARGB(255, 222, 217, 189),
     );
   }
-
-  
 }
